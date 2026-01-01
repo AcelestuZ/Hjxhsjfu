@@ -1856,3 +1856,37 @@ while true do
 	    end
 
 end
+
+local UIS = game:GetService("UserInputService")
+local CAS = game:GetService("ContextActionService")
+
+if UIS.TouchEnabled then
+    mobile = true
+    
+    local function handleMobileInput(actionName, inputState, inputObject)
+        if actionName == "MobileCrouch" then
+            if inputState == Enum.UserInputState.Begin then
+                cdown = true
+            elseif inputState == Enum.UserInputState.End then
+                cdown = false
+            end
+        elseif actionName == "MobileJump" then
+            if inputState == Enum.UserInputState.Begin then
+                wallrunabletrue()
+                wallruncheck()
+                if not hitfloor then
+                    hum:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+            end
+        end
+        return Enum.ContextActionResult.Pass
+    end
+
+    CAS:BindAction("MobileCrouch", handleMobileInput, true, Enum.KeyCode.C)
+    CAS:SetPosition("MobileCrouch", UDim2.new(0.5, 70, 0, -140))
+    CAS:SetTitle("MobileCrouch", "Slide")
+
+    CAS:BindAction("MobileJump", handleMobileInput, true, Enum.KeyCode.Space)
+    CAS:SetPosition("MobileJump", UDim2.new(0.5, 70, 0, -210))
+    CAS:SetTitle("MobileJump", "Parkour")
+end

@@ -326,88 +326,59 @@ local downedanim2play do
 ]]
 howmuchtpose = 0.2 --u can set it to minimum 0 to maximum 1. (how ever will bug out custom animations tho)
 
-local r=Instance.new("Animation")
-r.AnimationId="rbxassetid://27432686"
-local t=game.Players.LocalPlayer.Character
-local h=t.Humanoid
-local a=h:LoadAnimation(r)
-a.Priority = "Idle"
-downedanim2play = a
-end
-
-
-
-local rightwallrunanim = Instance.new("Animation",char)
-rightwallrunanim.AnimationId = "rbxassetid://180426354"
-local rightwallrunanimplay = hum:LoadAnimation(rightwallrunanim)
-
-
-local verticalwallrunanim = Instance.new("Animation",char)
-verticalwallrunanim.AnimationId = "rbxassetid://180426354"
-local verticalwallrunanimplay = hum:LoadAnimation(verticalwallrunanim)
-
-local roll = Instance.new("Animation",char)
-roll.AnimationId = "rbxassetid://180612465"
-local rollplay = hum:LoadAnimation(roll)
-
-
-local crouching = Instance.new("Animation",char)
-crouching.AnimationId = "rbxassetid://287325678"
-local crouchingplay = hum:LoadAnimation(crouching)
-
-local springjump = Instance.new("Animation",char)
-springjump.AnimationId = "rbxassetid://287325678"
-local springjumpplay = hum:LoadAnimation(springjump)
-
-
-local dodging = Instance.new("Animation",char)
-dodging.AnimationId = "rbxassetid://287325678"
-local dodgingplay = hum:LoadAnimation(dodging)
-
-local slidinganim = Instance.new("Animation",char)
-slidinganim.AnimationId = "rbxassetid://132546884"
-local slidingplay = hum:LoadAnimation(slidinganim)
-local rollering = false
-
+Animation") and animObj.AnimationId ~= "" then
 local isR15 = (hum.RigType == Enum.RigType.R15)
 
+-- Definiamo gli oggetti animazione
+leftwallrunanim = Instance.new("Animation",char)
+rightwallrunanim = Instance.new("Animation",char)
+verticalwallrunanim = Instance.new("Animation",char)
+roll = Instance.new("Animation",char)
+crouching = Instance.new("Animation",char)
+springjump = Instance.new("Animation",char)
+dodging = Instance.new("Animation",char)
+slidinganim = Instance.new("Animation",char)
+downedanim1 = Instance.new("Animation",char)
+
 if isR15 then
-	torso = char:WaitForChild("UpperTorso", 5) or char:WaitForChild("HumanoidRootPart", 5)
-	leftarm = char:FindFirstChild("LeftUpperArm") or char:FindFirstChild("Left Arm")
-	rightarm = char:FindFirstChild("RightUpperArm") or char:FindFirstChild("Right Arm")
-	leftleg = char:FindFirstChild("LeftUpperLeg") or char:FindFirstChild("Left Leg")
-	rightleg = char:FindFirstChild("RightUpperLeg") or char:FindFirstChild("Right Leg")
+    -- ID PER R15
+    leftwallrunanim.AnimationId = "rbxassetid://507767714"
+    rightwallrunanim.AnimationId = "rbxassetid://507767714"
+    verticalwallrunanim.AnimationId = "rbxassetid://507767714"
+    roll.AnimationId = "rbxassetid://507767968"
+    crouching.AnimationId = "rbxassetid://507767822"
+    springjump.AnimationId = "rbxassetid://507767822"
+    dodging.AnimationId = "rbxassetid://507767822"
+    slidinganim.AnimationId = "rbxassetid://507777826"
+    downedanim1.AnimationId = "rbxassetid://507767919"
+    -- Aggiorna parti del corpo per R15
+    torso = char:WaitForChild("UpperTorso")
+    leftarm = char:WaitForChild("LeftUpperArm")
+    rightarm = char:WaitForChild("RightUpperArm")
+else
+    -- ID ORIGINALI R6
+    leftwallrunanim.AnimationId = "rbxassetid://180426354"
+    rightwallrunanim.AnimationId = "rbxassetid://180426354"
+    verticalwallrunanim.AnimationId = "rbxassetid://180426354"
+    roll.AnimationId = "rbxassetid://180612465"
+    crouching.AnimationId = "rbxassetid://287325678"
+    springjump.AnimationId = "rbxassetid://287325678"
+    dodging.AnimationId = "rbxassetid://287325678"
+    slidinganim.AnimationId = "rbxassetid://132546884"
+    downedanim1.AnimationId = "rbxassetid://282574440"
+end
 
-	leftwallrunanim.AnimationId = "rbxassetid://507767714"
-	rightwallrunanim.AnimationId = "rbxassetid://507767714"
-	verticalwallrunanim.AnimationId = "rbxassetid://507767714"
-	roll.AnimationId = "rbxassetid://507767968"
-	crouching.AnimationId = "rbxassetid://507767822"
-	springjump.AnimationId = "rbxassetid://507767822"
-	dodging.AnimationId = "rbxassetid://507767822"
-	slidinganim.AnimationId = "rbxassetid://507777826"
-	downedanim1.AnimationId = "rbxassetid://507767919"
-
-	local function safeLoad(animObj)
-		if animObj and animObj:IsA("Animation") and animObj.AnimationId ~= "" then
-			return hum:LoadAnimation(animObj)
-		end
-	end
-
-	leftwallrunanimplay = safeLoad(leftwallrunanim)
-	rightwallrunanimplay = safeLoad(rightwallrunanim)
-	verticalwallrunanimplay = safeLoad(verticalwallrunanim)
-	rollplay = safeLoad(roll)
-	crouchingplay = safeLoad(crouching)
-	springjumpplay = safeLoad(springjump)
-	dodgingplay = safeLoad(dodging)
-	slidingplay = safeLoad(slidinganim)
-	downedanim1play = safeLoad(downedanim1)
-
-	if gyro then 
-		gyro.Parent = torso 
-	end
-
+-- Carichiamo le animazioni (DOPO aver impostato gli ID corretti)
+leftwallrunanimplay = hum:LoadAnimation(leftwallrunanim)
+rightwallrunanimplay = hum:LoadAnimation(rightwallrunanim)
+verticalwallrunanimplay = hum:LoadAnimation(verticalwallrunanim)
+rollplay = hum:LoadAnimation(roll)
+crouchingplay = hum:LoadAnimation(crouching)
+springjumpplay = hum:LoadAnimation(springjump)
+dodgingplay = hum:LoadAnimation(dodging)
+slidingplay = hum:LoadAnimation(slidinganim)
+downedanim1play = hum:LoadAnimation(downedanim1)
+	
 	game:GetService("RunService").RenderStepped:Connect(function()
 		if sliding then
 			hum.CameraOffset = hum.CameraOffset:Lerp(Vector3.new(0, -1.2, 0), 0.1)

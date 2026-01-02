@@ -369,6 +369,48 @@ slidinganim.AnimationId = "rbxassetid://132546884"
 local slidingplay = hum:LoadAnimation(slidinganim)
 local rollering = false
 
+local isR15 = (hum.RigType == Enum.RigType.R15)
+
+if isR15 then
+	torso = char:WaitForChild("UpperTorso")
+	leftarm = char:WaitForChild("LeftUpperArm")
+	rightarm = char:WaitForChild("RightUpperArm")
+	leftleg = char:WaitForChild("LeftUpperLeg")
+	rightleg = char:WaitForChild("RightUpperLeg")
+
+	leftwallrunanim.AnimationId = "rbxassetid://507767714"
+	rightwallrunanim.AnimationId = "rbxassetid://507767714"
+	verticalwallrunanim.AnimationId = "rbxassetid://507767714"
+	roll.AnimationId = "rbxassetid://507767968"
+	crouching.AnimationId = "rbxassetid://507767822"
+	springjump.AnimationId = "rbxassetid://507767822"
+	dodging.AnimationId = "rbxassetid://507767822"
+	slidinganim.AnimationId = "rbxassetid://507777826"
+	downedanim1.AnimationId = "rbxassetid://507767919"
+
+	leftwallrunanimplay = hum:LoadAnimation(leftwallrunanim)
+	rightwallrunanimplay = hum:LoadAnimation(rightwallrunanim)
+	verticalwallrunanimplay = hum:LoadAnimation(verticalwallrunanim)
+	rollplay = hum:LoadAnimation(roll)
+	crouchingplay = hum:LoadAnimation(crouching)
+	springjumpplay = hum:LoadAnimation(springjump)
+	dodgingplay = hum:LoadAnimation(dodging)
+	slidingplay = hum:LoadAnimation(slidinganim)
+	downedanim1play = hum:LoadAnimation(downedanim1)
+
+	if gyro then 
+		gyro.Parent = torso 
+	end
+
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if sliding then
+			hum.CameraOffset = hum.CameraOffset:Lerp(Vector3.new(0, -1.2, 0), 0.1)
+		else
+			hum.CameraOffset = hum.CameraOffset:Lerp(Vector3.new(0, 0, 0), 0.1)
+		end
+	end)
+end
+
 
 hum.Died:Connect(function()
 if game.Workspace:FindFirstChild("Remote") then

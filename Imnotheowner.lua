@@ -372,11 +372,11 @@ local rollering = false
 local isR15 = (hum.RigType == Enum.RigType.R15)
 
 if isR15 then
-	torso = char:WaitForChild("UpperTorso")
-	leftarm = char:WaitForChild("LeftUpperArm")
-	rightarm = char:WaitForChild("RightUpperArm")
-	leftleg = char:WaitForChild("LeftUpperLeg")
-	rightleg = char:WaitForChild("RightUpperLeg")
+	torso = char:WaitForChild("UpperTorso", 5) or char:WaitForChild("HumanoidRootPart", 5)
+	leftarm = char:FindFirstChild("LeftUpperArm") or char:FindFirstChild("Left Arm")
+	rightarm = char:FindFirstChild("RightUpperArm") or char:FindFirstChild("Right Arm")
+	leftleg = char:FindFirstChild("LeftUpperLeg") or char:FindFirstChild("Left Leg")
+	rightleg = char:FindFirstChild("RightUpperLeg") or char:FindFirstChild("Right Leg")
 
 	leftwallrunanim.AnimationId = "rbxassetid://507767714"
 	rightwallrunanim.AnimationId = "rbxassetid://507767714"
@@ -388,15 +388,21 @@ if isR15 then
 	slidinganim.AnimationId = "rbxassetid://507777826"
 	downedanim1.AnimationId = "rbxassetid://507767919"
 
-	leftwallrunanimplay = hum:LoadAnimation(leftwallrunanim)
-	rightwallrunanimplay = hum:LoadAnimation(rightwallrunanim)
-	verticalwallrunanimplay = hum:LoadAnimation(verticalwallrunanim)
-	rollplay = hum:LoadAnimation(roll)
-	crouchingplay = hum:LoadAnimation(crouching)
-	springjumpplay = hum:LoadAnimation(springjump)
-	dodgingplay = hum:LoadAnimation(dodging)
-	slidingplay = hum:LoadAnimation(slidinganim)
-	downedanim1play = hum:LoadAnimation(downedanim1)
+	local function safeLoad(animObj)
+		if animObj and animObj:IsA("Animation") and animObj.AnimationId ~= "" then
+			return hum:LoadAnimation(animObj)
+		end
+	end
+
+	leftwallrunanimplay = safeLoad(leftwallrunanim)
+	rightwallrunanimplay = safeLoad(rightwallrunanim)
+	verticalwallrunanimplay = safeLoad(verticalwallrunanim)
+	rollplay = safeLoad(roll)
+	crouchingplay = safeLoad(crouching)
+	springjumpplay = safeLoad(springjump)
+	dodgingplay = safeLoad(dodging)
+	slidingplay = safeLoad(slidinganim)
+	downedanim1play = safeLoad(downedanim1)
 
 	if gyro then 
 		gyro.Parent = torso 
